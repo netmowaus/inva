@@ -41,6 +41,10 @@ if (!defined('INVOICE_MANAGEMENT_PLUGIN_URL')) {
 // require_once INVOICE_MANAGEMENT_PLUGIN_DIR . 'includes/class-invoice-management-activator.php';
 // require_once INVOICE_MANAGEMENT_PLUGIN_DIR . 'includes/class-invoice-management-deactivator.php';
 
+require_once INVOICE_MANAGEMENT_PLUGIN_DIR . 'admin/class-invoice-settings.php';
+require_once INVOICE_MANAGEMENT_PLUGIN_DIR . 'includes/core-functions.php';
+require_once INVOICE_MANAGEMENT_PLUGIN_DIR . 'includes/class-invoice-cpts.php';
+
 // register_activation_hook(__FILE__, ['Invoice_Management_Activator', 'activate']);
 // register_deactivation_hook(__FILE__, ['Invoice_Management_Deactivator', 'deactivate']);
 
@@ -72,6 +76,16 @@ function invoice_management_init() {
         false,
         dirname(plugin_basename(__FILE__)) . '/languages/'
     );
+
+    // Initialize Settings Class
+    if (class_exists('Invoice_Management_Settings')) {
+        Invoice_Management_Settings::get_instance();
+    }
+
+    // Initialize CPT Class
+    if (class_exists('Invoice_Management_CPTs')) {
+        Invoice_Management_CPTs::get_instance();
+    }
 
     // Placeholder: Initialize main plugin class or load key components
     // For example:
